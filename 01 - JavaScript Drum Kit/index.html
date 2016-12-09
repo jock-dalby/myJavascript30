@@ -70,14 +70,14 @@ function playSound (e) {
 
 function removeTransition(e) {
   if(e.propertyName !== 'transform') return; // Skip it if it's not transform
-  this.classList.remove('playing');
+  this.classList.remove('playing'); // Remove the class when the transition has finished
 }
 
  // Create an array for all elements with class of 'key', and then add a listener to each one. When the transition in CSS ends, run the removeTransition function.
-
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
+// Listens for any keydown press
 window.addEventListener('keydown', playSound);
 
 </script>
