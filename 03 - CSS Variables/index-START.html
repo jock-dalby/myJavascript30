@@ -21,38 +21,68 @@
   <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
 
   <style>
+  /* Declare CSS variable */
+  :root {
+    --base: #ffc600;
+    --spacing: 10px;
+    --blur: 10px;
+  }
 
-    /*
-      misc styles, nothing to do with CSS variables
-    */
+  /* Use variables as values */
+  img {
+    padding: var(--spacing);
+    background: var(--base);
+    filter: blur(var(--blur));
+  }
 
-    body {
-      text-align: center;
-    }
+  .hl {
+    color: var(--base);
+  }
 
-    body {
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
+  /*
+    misc styles, nothing to do with CSS variables
+  */
 
-    .controls {
-      margin-bottom: 50px;
-    }
+  body {
+    text-align: center;
+  }
 
-    a {
-      color: var(--base);
-      text-decoration: none;
-    }
+  body {
+    background: #193549;
+    color: white;
+    font-family: 'helvetica neue', sans-serif;
+    font-weight: 100;
+    font-size: 50px;
+  }
 
-    input {
-      width:100px;
-    }
+  .controls {
+    margin-bottom: 50px;
+  }
+
+  a {
+    color: var(--base);
+    text-decoration: none;
+  }
+
+  input {
+    width:100px;
+  }
   </style>
 
   <script>
+  /* Grab all inputs child of .controls */
+  const inputs = document.querySelectorAll('.controls input');
+
+  function handleUpdate () {
+    /* collect suffix from data-sizing of target element, if not one, use '' */
+    /* this.data-set creates an array of all attributes starting with data- from target element */
+    const suffix = this.dataset.sizing || '';
+    /* Change the value of variable to the value of target element + suffix */
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+  }
+  /* Everytime to value changes, or the mouse moves on it, handleChange is called. If scroll icon is not selected the function will still be called but the value will not change. */
+  inputs.forEach(input => input.addEventListener('change', handleUpdate));
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
   </script>
 
 </body>
