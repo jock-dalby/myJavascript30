@@ -24,6 +24,8 @@
     .panels {
       min-height:100vh;
       overflow: hidden;
+      display: flex;
+
     }
 
     .panel {
@@ -41,6 +43,11 @@
       font-size: 20px;
       background-size:cover;
       background-position:center;
+      flex: 1; /* Gets each panel to evenly distribute the extra space among them */
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
     }
 
 
@@ -50,11 +57,36 @@
     .panel4 { background-image:url(https://source.unsplash.com/ITjiVXcwVng/1500x1500); }
     .panel5 { background-image:url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500); }
 
+    /* Flex children */
     .panel > * {
       margin:0;
       width: 100%;
       transition:transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
+    /* Below instructions mean that is any of the panel's has the class .open-acitve, the first-child/last-child element will be brought back on screen by cancelling out the translatY instruction which is currently setting the element off screen */
+
+    .panel > *:first-child {
+      transform: translateY(-100%);
+    }
+
+    .panel.open-active > *:first-child {
+      transform: translateY(0%);
+    }
+
+    .panel > *:last-child {
+      transform: translateY(100%);
+    }
+
+    .panel.open-active > *:last-child {
+      transform: translateY(0%);
+    }
+
+    /************************/
 
     .panel p {
       text-transform: uppercase;
@@ -67,6 +99,7 @@
     }
 
     .panel.open {
+      flex: 5; /* Any panel with the class of open, it is going to take x5 the amount of extra room than the rest of the panels*/
       font-size:40px;
     }
 
@@ -108,9 +141,23 @@
 
   <script>
 
+  const panels = document.querySelectorAll('.panel');
+
+  function toggleOpen () {
+    this.classList.toggle('open');
+  }
+
+  function toggleActive (e) {
+    console.log(e.propertyName); // Tells us what transition has ended
+    if (e.propertyName.includes('flex')) {
+      this.classList.toggle('open-active');
+    }
+  }
+
+  panels.forEach(panel => panel.addEventListener('click', toggleOpen))
+  panels.forEach(panel => panel.addEventListener('transitionend', toggleActive))
+
   </script>
-
-
 
 </body>
 </html>
