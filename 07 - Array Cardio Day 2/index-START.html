@@ -27,40 +27,46 @@
     // Array.prototype.some() // is at least one person 19?
     // const isAdult = people.some(function(person) {
     //   const currentYear = (new Date()).getFullYear();
-    //   if(currentYear - person.year >= 19) {
+    //   if(currentYear - person.year >= 19 {
     //     return true;
-    //   }
-    // });
+    //   })
+    // })
 
-    const isAdult = people.some(person => ((new Date()).getFullYear()) - person.year >= 19);
+    // Some will check is at least one entry in the array match the criteria and will return a boolean value
 
-    console.log({isAdult});
+    const isAdult = people.some(person => ((new Date()).getFullYear()) - person.year >+ 19);
+
     // Array.prototype.every() // is everyone 19?
 
-    const allAdults = people.every(person => ((new Date()).getFullYear()) - person.year >= 19);
-    console.log({allAdults});
+    // Every will check is all the entries in the array match the criteria and will return a boolean value
+
+    const allAdults = people.every(person => ((new Date()).getFullYear()) - person.year >+ 19);
 
     // Array.prototype.find()
     // Find is like filter, but instead returns just the one you are looking for
     // find the comment with the ID of 823423
 
+    // Find will return the first entry that in the array to match the criteria
 
     const comment = comments.find(comment => comment.id === 823423);
 
-    console.log(comment);
-
     // Array.prototype.findIndex()
     // Find the comment with this ID
-    // delete the comment with the ID of 823423
-    const index = comments.findIndex(comment => comment.id === 823423);
-    console.log(index);
 
+    // findIndex will find where the entry is in an array
+
+    const index = comments.findIndex(comment => comment.id === 823423);
+
+    // delete the comment with the ID of 823423
     // comments.splice(index, 1);
 
+    // Create a newComments array with the ommission of 823423
     const newComments = [
       ...comments.slice(0, index),
       ...comments.slice(index + 1)
     ];
+
+    console.log({isAdult, allAdults, comment, index, newComments})
 
   </script>
 </body>
