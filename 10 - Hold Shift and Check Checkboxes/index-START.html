@@ -104,6 +104,31 @@
   </div>
 
 <script>
+
+const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+
+let lastChecked;
+
+function handleCheck (e) {
+  // Check if they had the shift keydown
+  // AND check that they are checking it
+  let inBetween = false;
+  if (e.shiftKey && this.checked) {
+    checkboxes.forEach(checkbox => {
+      if (checkbox === this || checkbox === lastChecked) { // This logs the first checkbox it comes to which is either the first or the last (so it can also work backwards). It then flips all inbetween from true to false and vice versa, until it hits the second start/ finish and the flips it back.
+        inBetween = !inBetween;
+      }
+
+      if(inBetween) {
+        checkbox.checked = true;
+      }
+    })
+  }
+  lastChecked = this;
+}
+
+checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+
 </script>
 </body>
 </html>
