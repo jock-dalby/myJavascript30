@@ -182,6 +182,27 @@
     </li>
 
 <script>
+
+const timeNodes = Array.from(document.querySelectorAll('[data-time]')); // Convert Nodelist to an Array
+const seconds = timeNodes
+  .map(node => node.dataset.time)
+  .map(timeCode => {
+    const [mins, secs] = timeCode.split(':').map(parseFloat);
+    return (mins * 60) + secs;
+  })
+  .reduce((total, vidSeconds) => total + vidSeconds);
+
+  // All above could be done in one reduce funtion if confident
+
+  let secondsLeft = seconds;
+  const hours = Math.floor(secondsLeft / 3600); // How many whole hours are remaining
+  secondsLeft = secondsLeft % 3600; // How many seconds are remaining after removing all whole hours. (mod operator)
+
+  const mins = Math.floor(secondsLeft / 60);
+  secondsLeft = secondsLeft % 60;
+
+  console.log(hours, mins, secondsLeft);
+
 </script>
 </body>
 </html>
